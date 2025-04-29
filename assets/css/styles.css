@@ -294,7 +294,6 @@ body {
 /* SECTION ABOUT */
 .about-container {
   background-color: #fafafa;
-  height: 200vh;
   width: 100%;
   padding-left: 5%;
   padding-right: 5%;
@@ -618,53 +617,152 @@ span {
 }
 
 .projects-container {
-  background-color: #fafafa;
-  height: 200vh;
   width: 100%;
   padding-left: 5%;
   padding-right: 5%;
-  margin-top: 40%;
 }
 
-.card-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  background-color: #1553A2;
-}
-
-.card-projects{
-  background-color: #00E5FF;
-  height: 200px;
-  width: 300px;
-  transition: width 2s ease-in-out; 
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.card-projects:hover {
-  z-index: 0;
-}
-
-.card-projects img {
-  width: 150%;
-  height: 150%;
-  object-fit: cover;
-  display: block;
-}
-
+/* Filtrage des catégories */
 .filter-categorie {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.contact-container {
-  background-color: #8D549A;
-  height: 800px;
+.filter-categorie ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 40px;
 }
+
+.filter-categorie ul li {
+  font-size: 1.2rem;
+  margin: 0 20px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  font-weight: 500;
+  color: #1F1A38;
+}
+
+.filter-categorie ul li:hover {
+  color: #1553A2; /* Couleur d'accentuation lors du survol */
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between; 
+}
+
+/* Conteneur de chaque carte projet */
+.card-projects {
+  position: relative;
+  width: 33%; 
+  height: auto;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: all 0.5s ease;
+  z-index: 1;
+}
+
+.card-projects img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+/* Effet sur le survol */
+.card-projects:hover img {
+  transform: scale(1.2); /* Agrandir l'image au survol */
+}
+
+/* Overlay avec effet slide et couleur violette */
+.card-projects .overlay {
+  position: absolute;
+  top: 0;
+  left: -100%; /* L'overlay commence à gauche hors de la carte */
+  width: 100%;
+  height: 100%;
+  background-color: rgba(142, 68, 173, 0.7); /* Violet avec opacité #8e44ad */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: left 0.5s ease-in-out; /* Transition pour déplacer l'overlay */
+}
+
+/* Afficher l'overlay et déplacer de gauche à droite au survol */
+.card-projects:hover .overlay {
+  left: 0; /* Déplacer l'overlay de gauche à droite */
+}
+
+/* Nom du projet, caché initialement */
+.project-name {
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  color: white;
+  font-size: 24px;
+  font-weight: 500;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+/* Rendre visible le nom du projet lors du survol */
+.card-projects:hover .project-name {
+  opacity: 1;
+}
+
+.contact-container {
+  width: 100%;
+  padding-left: 5%;
+  padding-right: 5%;
+  background: linear-gradient(to right, #1553a2, #8e44ad);
+  padding: 60px 20px;
+  color: white;
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+}
+
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-width: 600px;
+  margin: 0 auto;
+  font-size: 18px;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.contact-item i {
+  font-size: 20px;
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  border-radius: 50%;
+}
+
+.contact-item a {
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.contact-item a:hover {
+  color: #ffd700;
+}
+  
 
 .footer-container {
   background-color: #131313;

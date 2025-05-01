@@ -1,32 +1,46 @@
 <div class="projects-container">
     <div class="title">
-        <h1>Projects</h1>
+      <h1>Projects</h1>
     </div>
-
+  
     <div class="filter-categorie">
-        <ul>
-            <li>Design graphique</li>
-            <li>web</li>
-        </ul>
+      <ul>
+        <li>Design graphique</li>
+        <li>Web</li>
+      </ul>
     </div>
-    <div class="card-container">
+  
+    <div class="scroll-wrapper">
+      <button class="scroll-icon scroll-prev disabled" onclick="scrollProjects(-1)">‹</button>
+  
+      <div class="card-container">
         <div class="card-projects">
-            <img src="assets/img/Pro_Mockup_1.png" alt="" />
-            <div class="overlay">
-            <h3 class="project-name">Project 1</h3>
-            </div>
+          <img src="assets/img/Pro_Mockup_1.png" alt="Project 1" />
+          <div class="overlay"><h3 class="project-name">Project 1</h3></div>
         </div>
         <div class="card-projects">
-            <img src="assets/img/p2.png" alt="" />
-            <div class="overlay">
-            <h3 class="project-name">Project 2</h3>
-            </div>
+          <img src="assets/img/p2.png" alt="Project 2" />
+          <div class="overlay"><h3 class="project-name">Project 2</h3></div>
         </div>
         <div class="card-projects">
-            <img src="assets/img/p3-zest.png" alt="" />
-            <div class="overlay">
-            <h3 class="project-name">Project 3</h3>
-            </div>
+          <img src="assets/img/p3-zest.png" alt="Project 3" />
+          <div class="overlay"><h3 class="project-name">Project 3</h3></div>
         </div>
+        <div class="card-projects">
+          <img src="assets/img/Pro_Mockup_1.png" alt="Project 1 again" />
+          <div class="overlay"><h3 class="project-name">Project 1</h3></div>
+        </div>
+        <div class="card-projects">
+          <img src="assets/img/p2.png" alt="Project 2 again" />
+          <div class="overlay"><h3 class="project-name">Project 2</h3></div>
+        </div>
+        <div class="card-projects">
+          <img src="assets/img/p3-zest.png" alt="Project 3 again" />
+          <div class="overlay"><h3 class="project-name">Project 3</h3></div>
+        </div>
+      </div>
+  
+      <button class="scroll-icon scroll-next" onclick="scrollProjects(1)">›</button>
     </div>
-</div>
+  </div>
+  

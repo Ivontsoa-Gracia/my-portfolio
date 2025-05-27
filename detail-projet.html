@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Détail du Projet</title>
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+  <div class="goback">
+    <a href="index.html#projects" class="btn-retour">
+        <i class="fas fa-arrow-left"></i> 
+    </a>
+  </div>
+      
+
+  <div class="detail-project-container">
+
+    <header class="project-header">
+      <h1 class="project-title"></h1>
+      <div class="infos">
+        <div class="project-meta">
+            <span class="labels">Catégorie :</span> <span class="categories"></span>
+            <br />
+            <div id="container-lien-git" style="display:none;">
+                <span  class="labels">URL Git : </span><a id="lien-git" href="#" target="_blank" rel="noopener noreferrer"></a>
+              </div>              
+        </div>
+      </div>
+    </header>
+
+    <div class="project-content">
+      <div class="project-image" aria-label="Carrousel d'images du projet" role="region">
+        <div class="carousel-inner" id="carousel-inner"></div>
+        <div class="carousel-indicators" id="carousel-indicators"></div>
+      </div>
+
+      <section class="project-description" aria-label="Description du projet">
+        <p class="description-text"></p>
+
+        <div class="project-concepts" aria-label="Concepts du projet">
+          <ul id="concept-list"></ul>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <script src="assets/js/detail-projet.js"></script>
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const projectId = urlParams.get('id');
+    const projet = projets.find(p => p.id === projectId);
+
+    if (!projet) {
+      document.querySelector('.detail-project-container').innerHTML = "<p>Projet non trouvé.</p>";
+    } else {
+      // Titre
+      document.querySelector('.project-title').textContent = projet.titre;
+
+      // Catégorie
+      document.querySelector('.categories').textContent = projet.categories.toUpperCase();
+
+      // Lien Git
+      const lienGitContainer = document.getElementById('container-lien-git');
+    const lienGit = document.getElementById('lien-git');
+
+    if (projet.categories.toLowerCase() === 'web' && projet.lienGit) {
+    lienGitContainer.style.display = 'block';
+    lienGit.href = projet.lienGit;
+    lienGit.textContent = projet.lienGit;
+    }
+
+
+      // Description
+      document.querySelector('.description-text').textContent = projet.description;
+
+      // Concepts
+      const conceptList = document.getElementById('concept-list');
+      conceptList.innerHTML = '';
+      if (projet.concepts && projet.concepts.length) {
+        projet.concepts.forEach(concept => {
+          const li = document.createElement('li');
+          li.textContent = concept;
+          conceptList.appendChild(li);
+        });
+      }
+
+      // Carousel
+      const carouselInner = document.getElementById('carousel-inner');
+      const indicators = document.getElementById('carousel-indicators');
+      let currentIndex = 0;
+
+      projet.images.forEach((imgSrc, index) => {
+        const img = document.createElement('img');
+        img.src = imgSrc;
+        img.alt = `${projet.titre} - image ${index + 1}`;
+        carouselInner.appendChild(img);
+
+        const btn = document.createElement('button');
+        btn.setAttribute('aria-label', `Afficher l'image ${index + 1}`);
+        if(index === 0) btn.classList.add('active');
+        btn.addEventListener('click', () => {
+          currentIndex = index;
+          updateCarousel();
+          resetAutoSlide();
+        });
+        indicators.appendChild(btn);
+      });
+
+      function updateCarousel() {
+        const containerWidth = document.querySelector('.project-image').offsetWidth;
+        const offset = -currentIndex * containerWidth;
+        carouselInner.style.transform = `translateX(${offset}px)`;
+        
+        [...indicators.children].forEach((btn, i) => {
+          btn.classList.toggle('active', i === currentIndex);
+        });
+      }
+
+
+      let slideInterval = setInterval(() => {
+        currentIndex = (currentIndex + 1) % projet.images.length;
+        updateCarousel();
+      }, 6000);
+
+      function resetAutoSlide() {
+        clearInterval(slideInterval);
+        slideInterval = setInterval(() => {
+          currentIndex = (currentIndex + 1) % projet.images.length;
+          updateCarousel();
+        }, 6000);
+      }
+    }
+  </script>
+</body>
+</html>

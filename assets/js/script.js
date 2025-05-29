@@ -123,3 +123,62 @@ function scrollProjects(direction) {
     }
   }, 400); // attendre la fin du scroll
 }
+
+
+// Charger projects.html
+fetch('projects.html')
+  .then(response => response.text())
+  .then(data => {
+    document.getElementById('projects').innerHTML = data;
+
+    const container = document.getElementById("projectsContainer");
+
+    // 🔁 On garde une copie complète des projets affichés
+    let projetsAffiches = [];
+
+    function afficherProjets(filtre = "") {
+      container.innerHTML = "";
+
+      // Appliquer le filtre : si aucun filtre => tout afficher
+      // const filtrés = filtre ? projets.filter(p => p.categories === filtre) : projets;
+      const filtrés = filtre ? projets.filter(p => p.categories.includes(filtre)) : projets;
+
+      projetsAffiches = filtrés; // Met à jour la liste actuelle
+
+      filtrés.forEach(p => {
+        const card = document.createElement("div");
+        card.className = "card-projects";
+        card.setAttribute("data-project", p.id);
+        card.innerHTML = `
+          <img src="${p.images[0]}" alt="${p.marque}">
+          <div class="overlay">
+            <a href="detail-projet.html?id=${p.id}">
+              <h3 class="project-name">${p.marque}</h3>
+            </a>
+          </div>`;
+        container.appendChild(card);
+      });
+    }
+
+    function activerFiltres() {
+      const boutons = document.querySelectorAll(".filter-categorie li");
+
+      boutons.forEach(btn => {
+        btn.addEventListener("click", () => {
+          const cat = btn.getAttribute("data-category");
+
+          // Met à jour l'apparence des boutons
+          boutons.forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+
+          // Filtrage
+          afficherProjets(cat);
+        });
+      });
+    }
+
+    activerFiltres();
+    afficherProjets(); // Affiche tous les projets par défaut
+  })
+  .catch(error => console.log('Erreur de chargement de projects.html:', error));
+

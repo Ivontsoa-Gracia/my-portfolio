@@ -10,22 +10,21 @@
 <body>
   <div class="goback">
     <a href="index.html#projects" class="btn-retour">
-        <i class="fas fa-arrow-left"></i> 
+      <i class="fas fa-arrow-left"></i> 
     </a>
   </div>
       
-
   <div class="detail-project-container">
 
     <header class="project-header">
-      <h1 class="project-title"></h1>
+      <h1 class="project-marque"></h1>
       <div class="infos">
         <div class="project-meta">
-            <span class="labels">Catégorie :</span> <span class="categories"></span>
-            <br />
-            <div id="container-lien-git" style="display:none;">
-                <span  class="labels">URL Git : </span><a id="lien-git" href="#" target="_blank" rel="noopener noreferrer"></a>
-              </div>              
+          <span class="labels">Catégorie :</span> <span class="categories"></span>
+          <br />
+          <div id="container-lien-git" style="display:none;">
+            <span class="labels">URL Git : </span><a id="lien-git" href="#" target="_blank" rel="noopener noreferrer"></a>
+          </div>              
         </div>
       </div>
     </header>
@@ -37,8 +36,8 @@
       </div>
 
       <section class="project-description" aria-label="Description du projet">
+        <h3 class="project-title"></h3>
         <p class="description-text"></p>
-
         <div class="project-concepts" aria-label="Concepts du projet">
           <ul id="concept-list"></ul>
         </div>
@@ -55,27 +54,22 @@
     if (!projet) {
       document.querySelector('.detail-project-container').innerHTML = "<p>Projet non trouvé.</p>";
     } else {
-      // Titre
       document.querySelector('.project-title').textContent = projet.titre;
+      document.querySelector('.project-marque').textContent = projet.marque;
+      document.querySelector('.categories').textContent = projet.categories.map(cat => cat.toUpperCase()).join(", ");
 
-      // Catégorie
-      document.querySelector('.categories').textContent = projet.categories.toUpperCase();
-
-      // Lien Git
       const lienGitContainer = document.getElementById('container-lien-git');
-    const lienGit = document.getElementById('lien-git');
+      const lienGit = document.getElementById('lien-git');
+      if (projet.categories.includes('web') && projet.lienGit) {
+        lienGitContainer.style.display = 'block';
+        lienGit.href = projet.lienGit;
+        lienGit.textContent = projet.lienGit;
+      } else {
+        lienGitContainer.style.display = 'none';
+      }
 
-    if (projet.categories.toLowerCase() === 'web' && projet.lienGit) {
-    lienGitContainer.style.display = 'block';
-    lienGit.href = projet.lienGit;
-    lienGit.textContent = projet.lienGit;
-    }
-
-
-      // Description
       document.querySelector('.description-text').textContent = projet.description;
 
-      // Concepts
       const conceptList = document.getElementById('concept-list');
       conceptList.innerHTML = '';
       if (projet.concepts && projet.concepts.length) {
@@ -86,20 +80,44 @@
         });
       }
 
-      // Carousel
       const carouselInner = document.getElementById('carousel-inner');
       const indicators = document.getElementById('carousel-indicators');
       let currentIndex = 0;
+      let slideInterval;
 
-      projet.images.forEach((imgSrc, index) => {
-        const img = document.createElement('img');
-        img.src = imgSrc;
-        img.alt = `${projet.titre} - image ${index + 1}`;
-        carouselInner.appendChild(img);
+      projet.images.forEach((mediaSrc, index) => {
+        const extension = mediaSrc.split('.').pop().toLowerCase();
+        let mediaElement;
+
+        if (['jpg', 'jpeg', 'png', 'gif', 'webp'].includes(extension)) {
+          mediaElement = document.createElement('img');
+          mediaElement.src = mediaSrc;
+          mediaElement.alt = `${projet.titre} - image ${index + 1}`;
+        } else if (['mp4', 'webm', 'ogg'].includes(extension)) {
+          mediaElement = document.createElement('video');
+          mediaElement.src = mediaSrc;
+          mediaElement.controls = true;
+          mediaElement.autoplay = true;
+          mediaElement.muted = true;
+        } else if (extension === 'pdf') {
+          mediaElement = document.createElement('iframe');
+          mediaElement.src = mediaSrc;
+          mediaElement.width = "100%";
+          mediaElement.height = "600px";
+        } else {
+          mediaElement = document.createElement('p');
+          mediaElement.textContent = `Format non supporté : ${mediaSrc}`;
+          mediaElement.style.color = "red";
+        }
+
+        mediaElement.style.maxWidth = '100%';
+        mediaElement.style.marginBottom = '15px';
+        mediaElement.classList.add('carousel-media');
+        carouselInner.appendChild(mediaElement);
 
         const btn = document.createElement('button');
-        btn.setAttribute('aria-label', `Afficher l'image ${index + 1}`);
-        if(index === 0) btn.classList.add('active');
+        btn.setAttribute('aria-label', `Afficher le média ${index + 1}`);
+        if (index === 0) btn.classList.add('active');
         btn.addEventListener('click', () => {
           currentIndex = index;
           updateCarousel();
@@ -112,25 +130,64 @@
         const containerWidth = document.querySelector('.project-image').offsetWidth;
         const offset = -currentIndex * containerWidth;
         carouselInner.style.transform = `translateX(${offset}px)`;
-        
+
         [...indicators.children].forEach((btn, i) => {
           btn.classList.toggle('active', i === currentIndex);
         });
+
+        [...carouselInner.children].forEach((media, idx) => {
+          if (media.tagName.toLowerCase() === 'video') {
+            media.pause();
+            media.currentTime = 0;
+          }
+        });
+
+        const currentMedia = carouselInner.children[currentIndex];
+        const isVideo = currentMedia.tagName.toLowerCase() === 'video';
+
+        if (isVideo) {
+          currentMedia.play();
+          clearInterval(slideInterval); // Stop auto-slide pendant la lecture
+          currentMedia.onended = () => {
+            nextSlide();
+            resetAutoSlide(); // Redémarre le slide automatique après la vidéo
+          };
+        }
+
+
       }
 
+      function startAutoSlide() {
+        slideInterval = setInterval(() => {
+          const currentMedia = carouselInner.children[currentIndex];
+          if (currentMedia.tagName.toLowerCase() !== 'video') {
+            nextSlide();
+          }
+        }, 6000);
 
-      let slideInterval = setInterval(() => {
-        currentIndex = (currentIndex + 1) % projet.images.length;
-        updateCarousel();
-      }, 6000);
+      }
 
       function resetAutoSlide() {
         clearInterval(slideInterval);
         slideInterval = setInterval(() => {
-          currentIndex = (currentIndex + 1) % projet.images.length;
-          updateCarousel();
+          const currentMedia = carouselInner.children[currentIndex];
+          if (currentMedia.tagName.toLowerCase() !== 'video') {
+            nextSlide();
+          }
         }, 6000);
       }
+
+
+      function nextSlide() {
+        currentIndex = (currentIndex + 1) % projet.images.length;
+        updateCarousel();
+      }
+
+
+      updateCarousel();
+      startAutoSlide();
+
+
     }
   </script>
 </body>

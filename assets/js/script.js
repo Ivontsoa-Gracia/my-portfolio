@@ -67,7 +67,7 @@ fetch('footer.html')
   .catch(error => console.log('Erreur de chargement de footer.html:', error));
 
 // Effet de typing dynamique
-const phrases = ["I'm designer", "I'm developer"];
+const phrases = ["UI/UX Designer", "Développeur Web"];
 const el = document.getElementById("typing-text");
 
 if (el) {
@@ -150,7 +150,7 @@ fetch('projects.html')
         card.className = "card-projects";
         card.setAttribute("data-project", p.id);
         card.innerHTML = `
-          <img src="${p.images[0]}" alt="${p.marque}">
+          <img src="${p.images[0]}" loading="lazy" alt="${p.marque}">
           <div class="overlay">
             <a href="detail-projet.html?id=${p.id}">
               <h3 class="project-name">${p.marque}</h3>

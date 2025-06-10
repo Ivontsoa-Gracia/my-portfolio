@@ -405,9 +405,12 @@ span {
 .me-photo {
   height: 450px; 
   overflow: hidden;
-  background-color: #6a4c93ff;
+  background-color: #ff595eff;
   position: relative;
   border-radius: 4px;
+  display: flex;
+  /* align-items: center; */
+  justify-content: center;
 
   /* background-image: repeating-linear-gradient(
     45deg,
@@ -442,7 +445,7 @@ span {
 
 
 .me-photo img {
-  width: 100%;
+  width: 120%;
   height: auto; 
   object-fit: cover;
   object-position: center top; 
@@ -462,7 +465,7 @@ span {
   right: -3%;
   transform: translateY(-50%);
   z-index: 0;
-  background-image: radial-gradient(#31e7f9 3px, transparent 3px);
+  background-image: radial-gradient(#6a4c93ff 3px, transparent 3px);
   opacity: 0.5;
 }
 
@@ -475,7 +478,7 @@ span {
   transform: translateY(-50%);
   z-index: 1;
   background-image: radial-gradient(#c696de 3px, transparent 3px);
-  opacity: 0.5;
+  opacity: 0.9;
 }
 
 .download-btn {
@@ -635,21 +638,24 @@ span {
 .resume-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 30px;
+  /* gap: 30px; */
   
 }
 
 .resume-column {
   flex: 1;
   padding: 20px;
+  gap: 0;
 }
 
 .resume-column .col {
   position: relative;
   border-left: 3px solid #6a4c93ff;
   padding-left: 30px;
-  margin-top: 10px;
+  /* margin-top: 10px; */
+  margin-bottom: -10px;
   margin-right: 15px;
+  padding-bottom: 10px;
 }
 
 .resume-column .col::before {
@@ -674,6 +680,10 @@ span {
   position: relative;
   text-transform: uppercase;
   /* margin-top: 40px; */
+}
+
+.education {
+  margin-top: 30px;
 }
 
 /* Ajuster la hiérarchie des textes */
@@ -707,6 +717,11 @@ span {
   font-family: 'Inter', 'Segoe UI', sans-serif;
   color: #6a4c93ff;
 
+}
+
+.contribution li {
+  /* list-style-type: disc; */
+  list-style: circle;
 }
 
 
@@ -1013,7 +1028,7 @@ span {
 } */
 
 .scan h1::before {
-content: 'Let\'s work together!';
+content: 'Collaborons ensemble';
 position: absolute;
 font-family: 'Inter', 'Segoe UI', sans-serif;
 top: 0;
@@ -1289,24 +1304,53 @@ border-right: 3px solid #ff595eff;
   text-align: left; 
 }
 
+.description-project {
+  /* flex: 1 1 400px; */
+  /* font-size: 1.15rem; */
+  line-height: 1.4;
+  color: #444;
+  margin-top: 5px;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+
+}
+
+.description-project h3 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin: 0;
+  color: #222831;
+  flex: 1 1 100%;
+  text-align: left; 
+}
+
 .description-text {
   /* background-color: #1982c4; */
   font-size: 1rem;
 }
 
 .project-concepts {
-  margin-top: 25px;
+
+  display: flex;
+  gap: 2rem; /* espace entre les listes */
+  flex-wrap: wrap; /* permet de passer en colonne sur petits écrans */
+  margin-top: 10px;
 }
 
 .project-concepts ul {
-  /* list-style-type: disc;
-  padding-left: 1.5rem; */
-  margin-top: 0.75rem;
+  list-style: circle inside;
+  padding: 0;
+  margin: 0;
 }
 
-/* .project-concepts ul li::marker {
-  color: #ff595e;
-} */
+.project-description h4 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin: 0;
+  color: #1982c4;
+  flex: 1 1 100%;
+  text-align: left; 
+  margin-top: 10px;
+}
 
 .project-concepts ul li {
   color: #fafafa;

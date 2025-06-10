@@ -30,6 +30,11 @@
     </header>
 
     <div class="project-content">
+      <!-- <section class="description-project">
+        <h3 class="project-title"></h3>
+        <p class="description-text"></p>
+      </section> -->
+
       <div class="project-image" aria-label="Carrousel d'images du projet" role="region">
         <div class="carousel-inner" id="carousel-inner"></div>
         <div class="carousel-indicators" id="carousel-indicators"></div>
@@ -38,6 +43,7 @@
       <section class="project-description" aria-label="Description du projet">
         <h3 class="project-title"></h3>
         <p class="description-text"></p>
+        <h4>Contributions principales :</h4>
         <div class="project-concepts" aria-label="Concepts du projet">
           <ul id="concept-list"></ul>
         </div>
@@ -60,7 +66,7 @@
 
       const lienGitContainer = document.getElementById('container-lien-git');
       const lienGit = document.getElementById('lien-git');
-      if (projet.categories.includes('web') && projet.lienGit) {
+      if (projet.categories.includes('développement') && projet.lienGit) {
         lienGitContainer.style.display = 'block';
         lienGit.href = projet.lienGit;
         lienGit.textContent = projet.lienGit;

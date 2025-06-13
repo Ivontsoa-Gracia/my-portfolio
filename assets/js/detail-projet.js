@@ -43,6 +43,34 @@ const projets = [
       description: "Running Mezzanine est une entreprise spécialisée dans la fabrication et la distribution de snacks végétaliens, reconnus pour leur qualité haut de gamme. Distribués à l’international, leurs produits ciblent un public de couples mariés à la recherche de choix alimentaires sains, éthiques et raffinés. L'entreprise souhaitait une identité visuelle forte, transmettant une sensation de puissance maîtrisée, dans un esprit calme, élégant et confiant. Une préférence pour la couleur violette a été exprimée, reflétant à la fois le caractère unique de la marque et sa position premium sur le marché."
     },
 
+    {
+      id: "S6ProjMateriel",
+      titre: "Gestion des Matériels - Application Web d’Entreprise",
+      marque: "Gestion des Matériels",
+      categories: ["développement"],
+      images: [
+        "assets/img/projet/proj3_img1.png",
+        "assets/img/projet/proj3_img2.png",
+        "assets/img/projet/proj3_img3.png",
+        "assets/img/projet/proj3_img4.png",
+        "assets/img/projet/proj3_img5.png",
+        "assets/img/projet/proj3_img6.png",
+        "assets/img/projet/proj3_img7.png",
+        "assets/img/projet/proj3_img8.png",
+        "assets/img/projet/proj3_img9.png",
+      ],
+      lienGit: "https://github.com/Ivontsoa-Gracia/immobilisation",
+      concepts: [
+        "Développement du backend et des interfaces d’administration.",
+        "Mise en place des modules de maintenance et de reporting.",
+        "Intégration des règles comptables d’amortissement.",
+        "Création du tableau de bord interactif et des visualisations de données.",
+        "Implémentation de la gestion des droits d’accès et de la traçabilité des actions."
+      ],
+      description: "L’application 'Gestion des Matériels' est une solution web pensée pour centraliser et optimiser le suivi des immobilisations au sein d’une entreprise. Elle permet d’enregistrer chaque matériel avec ses informations clés, de les classer par catégorie et de les localiser précisément sur site. Le projet comprend également la gestion avancée des maintenances, des modules comptables pour l’amortissement, et un système de reporting automatisé. Un tableau de bord dynamique synthétise les données essentielles, offrant une vision claire sur les actifs. La sécurité est assurée via une gestion fine des accès et une journalisation complète des actions utilisateurs."
+    }
+    
+
   ];
 
   
